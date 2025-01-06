@@ -1,6 +1,7 @@
 import 'package:employee_managment/pregantaitions/screens/home_screen/home_screen.dart';
 import 'package:employee_managment/pregantaitions/screens/login/login_screen.dart';
 import 'package:employee_managment/pregantaitions/screens/splash_screen/splash_screen.dart';
+import 'package:employee_managment/pregantaitions/screens/update_employee/update_employee_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
@@ -9,6 +10,7 @@ class AppRoutes {
   static const String splashScreen = "/splashScreen";
   static const String loginScreen = "/loginScreen";
   static const String homeScreen = "/HomeScreen";
+  static const String updateEmployeeScreen = "/UpdateEmployeeScreen";
 
   static final GoRouter goRouter = GoRouter(
     initialLocation: splashScreen,
@@ -38,7 +40,14 @@ class AppRoutes {
         GoRoute(
           path: homeScreen,
           name: homeScreen,
-          builder: (context, state) =>  HomeScreen(),
+          builder: (context, state) =>  const HomeScreen(),
+        ),
+
+
+        GoRoute(
+          path: updateEmployeeScreen,
+          name: updateEmployeeScreen,
+          builder: (context, state) =>  UpdateEmployeeScreen(),
         ),
       ]
   );

@@ -1,35 +1,36 @@
-import 'package:employee_managment/bloc/emplyee/employee_bloc.dart';
-import 'package:employee_managment/bloc/emplyee/employee_event.dart';
-import 'package:employee_managment/core/routes/app_routes.dart';
-import 'package:employee_managment/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+import '../../../bloc/emplyee/employee_bloc.dart';
+import '../../../bloc/emplyee/employee_event.dart';
+import '../../../core/routes/app_routes.dart';
+
+class UpdateEmployeeScreen extends StatelessWidget {
+   UpdateEmployeeScreen({super.key});
 
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController designCtrl = TextEditingController();
   TextEditingController ageCtrl = TextEditingController();
-
+  TextEditingController idCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
-            const  SizedBox(height: 100),
+            SizedBox(height: 100),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextFormField(
                 controller: nameCtrl,
                 decoration: const InputDecoration(
-                  hintText: "Enter your name"
+                    hintText: "Enter your name"
                 ),
               ),
             ),
@@ -59,7 +60,18 @@ class LoginScreen extends StatelessWidget {
             ),
 
 
-           const SizedBox(height: 100),
+
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                controller: idCtrl,
+                decoration: const InputDecoration(
+                    hintText: "Enter Id"
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 100),
 
 
             ///==============log in button============>>>
@@ -80,8 +92,8 @@ class LoginScreen extends StatelessWidget {
                 if(nameCtrl.text == null){
 
                 }else{
-                  context.read<EmployeeBloc>().add(CreateEmployee(body));
                   nameCtrl.clear();
+                  context.read<EmployeeBloc>().add(UpdateEmployeeEvent(body, id: idCtrl.text));
                 }
 
 
@@ -94,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                     color: Colors.purpleAccent,
                     border: Border.all(color: Colors.purpleAccent, width: 1.5)
                 ),
-                child: const Center(child: Text("Log In")),
+                child: const Center(child: Text("Update Employee")),
               ),
             ),
 

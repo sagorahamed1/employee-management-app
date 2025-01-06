@@ -3,19 +3,26 @@ import 'package:employee_managment/bloc/emplyee/employee_event.dart';
 import 'package:employee_managment/bloc/emplyee/employee_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/routes/app_routes.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Trigger fetching employees when the screen is built
     context.read<EmployeeBloc>().add(GetEmployee());
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Employee Management'),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: (){
+            context.push(AppRoutes.updateEmployeeScreen);
+          }, icon: const Icon(Icons.edit))
+        ],
       ),
       body: BlocBuilder<EmployeeBloc, EmployeeState>(
         builder: (context, state) {
