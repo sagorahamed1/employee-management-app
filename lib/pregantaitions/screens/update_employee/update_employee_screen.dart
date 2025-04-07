@@ -7,7 +7,8 @@ import '../../../bloc/emplyee/employee_event.dart';
 import '../../../core/routes/app_routes.dart';
 
 class UpdateEmployeeScreen extends StatelessWidget {
-   UpdateEmployeeScreen({super.key});
+   final String id;
+   UpdateEmployeeScreen({super.key, required this.id});
 
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController designCtrl = TextEditingController();
@@ -17,7 +18,7 @@ class UpdateEmployeeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -84,16 +85,16 @@ class UpdateEmployeeScreen extends StatelessWidget {
                   "avatar": "avatar 2",
                   "designation": "${designCtrl.text}",
                   "age": "${ageCtrl.text}",
-                  "id": "1"
+                  "id": "$id"
                 };
 
-                context.push(AppRoutes.homeScreen);
+                context.pop();
 
                 if(nameCtrl.text == null){
 
                 }else{
                   nameCtrl.clear();
-                  context.read<EmployeeBloc>().add(UpdateEmployeeEvent(body, id: idCtrl.text));
+                  context.read<EmployeeBloc>().add(UpdateEmployeeEvent(body, id: id));
                 }
 
 

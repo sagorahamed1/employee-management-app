@@ -23,7 +23,7 @@ class AppRoutes {
             builder: (context, state) =>const SplashScreen(),
             redirect: (context, state) {
               Future.delayed(const Duration(seconds: 3), (){
-                AppRoutes.goRouter.replaceNamed(AppRoutes.loginScreen);
+                AppRoutes.goRouter.replaceNamed(AppRoutes.homeScreen);
               });
               return null;
             },
@@ -47,7 +47,9 @@ class AppRoutes {
         GoRoute(
           path: updateEmployeeScreen,
           name: updateEmployeeScreen,
-          builder: (context, state) =>  UpdateEmployeeScreen(),
+          builder: (context, state) {
+            final String id = state.extra as String;
+           return UpdateEmployeeScreen(id: id);},
         ),
       ]
   );

@@ -17,6 +17,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -75,14 +76,21 @@ class LoginScreen extends StatelessWidget {
                   "id": "1"
                 };
 
-                context.push(AppRoutes.homeScreen);
+
 
                 if(nameCtrl.text == null){
 
                 }else{
                   context.read<EmployeeBloc>().add(CreateEmployee(body));
                   nameCtrl.clear();
+                  ageCtrl.clear();
+                  designCtrl.clear();
+
+                  context.pop();
+
                 }
+
+
 
 
               },

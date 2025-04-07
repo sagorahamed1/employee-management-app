@@ -19,9 +19,13 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Employee Management'),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){
-            context.push(AppRoutes.updateEmployeeScreen);
-          }, icon: const Icon(Icons.edit))
+          IconButton(
+              onPressed: () {
+                context.push(AppRoutes.loginScreen).then((_){
+                  context.read<EmployeeBloc>().add(GetEmployee());
+                });
+              },
+              icon: const Icon(Icons.create_new_folder))
         ],
       ),
       body: BlocBuilder<EmployeeBloc, EmployeeState>(
@@ -31,7 +35,8 @@ class HomeScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is EmployeeErrorState) {
             // Show error message in case of failure
-            return const Center(child: Text("Failed to load employees. Please try again."));
+            return const Center(
+                child: Text("Failed to load employees. Please try again."));
           } else if (state is EmployeeLoadedState) {
             // Show employee list when data is loaded
             if (state.employee == null || state.employee!.isEmpty) {
@@ -45,13 +50,34 @@ class HomeScreen extends StatelessWidget {
                 var employee = state.employee![index];
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: Colors.blueAccent,
-                    child: Text(
-                        employee.name?.length == 0 ? "0" : (employee.name?[0]).toString()
-                        )
-                  ),
-                  title: Text(employee.name.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+                      backgroundColor: Colors.blueAccent,
+                      child: Text(employee.name?.length == 0
+                          ? "0"
+                          : (employee.name?[0]).toString())),
+                  title: Text(employee.name.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Text(employee.designation.toString()),
+                  trailing: SizedBox(
+                    width: 100,
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              context.push(AppRoutes.updateEmployeeScreen, extra: "${employee.id}").then((_){
+                                context.read<EmployeeBloc>().add(GetEmployee());
+                              });;
+                            },
+                            icon: const Icon(Icons.edit, color: Colors.green)),
+
+
+                        IconButton(
+                            onPressed: () {
+                              context.read<EmployeeBloc>().add(DeleteEmployeeEvent(id: employee.id.toString()));
+                            },
+                            icon: const Icon(Icons.delete, color: Colors.red)),
+                      ],
+                    ),
+                  ),
                   onTap: () {
                     // Implement navigation or actions on tap
                   },

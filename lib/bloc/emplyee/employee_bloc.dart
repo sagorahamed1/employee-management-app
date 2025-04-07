@@ -10,6 +10,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState>{
   EmployeeBloc({required this.getDataProvider}):super(EmployeeInitState()){
     on<EmployeeEvent>(getEmployee);
     on<CreateEmployee>(createEmployee);
+    on<DeleteEmployeeEvent>(deleteEmployee);
     on<UpdateEmployeeEvent>(updateEmployee as EventHandler<UpdateEmployeeEvent, EmployeeState>);
   }
 
@@ -46,6 +47,17 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState>{
       emit(EmployeePostSuccessState());
     } else {
       emit(EmployeePostFailedState());
+    }
+  }
+
+
+  Future<void> deleteEmployee(DeleteEmployeeEvent event, Emitter<EmployeeState> emit)async{
+    var response = await getDataProvider.deleteData("/employee/${event.id}");
+
+    if(response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 204){
+      emit(DeleteEmployeeSuccessState());
+    }else{
+      emit(DeleteEmployeeFailState());
     }
   }
 }

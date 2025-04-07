@@ -37,3 +37,11 @@ class UpdateEmployeeLoadingState extends EmployeeState{}
 class UpdateEmployeeSuccessState extends EmployeeState{}
 
 class UpdateEmployeeFailState extends EmployeeState{}
+
+
+///=================Delete Employee===============>>>
+class DeleteEmployeeLoadingState extends EmployeeState{}
+
+class DeleteEmployeeSuccessState extends EmployeeState{}
+
+class DeleteEmployeeFailState extends EmployeeState{}

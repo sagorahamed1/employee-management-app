@@ -13,3 +13,10 @@ class UpdateEmployeeEvent extends EmployeeEvent{
   final Map<String, dynamic> employeeUpdateDate;
   UpdateEmployeeEvent( this.employeeUpdateDate,{required this.id});
 }
+
+
+class DeleteEmployeeEvent extends EmployeeEvent{
+  final String id;
+
+  DeleteEmployeeEvent({required this.id});
+}
